@@ -144,6 +144,10 @@ public class Robot extends TimedRobot {
 
   @Override
   //teleop
+  public void autonomousInit()
+  {
+    
+  }
   public void teleopPeriodic() 
   {
     //driving control driver controller left and right stick
