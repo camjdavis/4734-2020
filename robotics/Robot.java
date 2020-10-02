@@ -2,7 +2,6 @@
 FRC 2021: Infant Recharge
 The Iron Plainsmen
 4734
-The Rhin0 and The Panther
 */
 
 
@@ -12,7 +11,6 @@ The Rhin0 and The Panther
 //a = elevtor down
 //y = elevator up
 //b = limelight
-//x = autonomous
 
 //Controller 2
 //left Stick = into shooter
@@ -143,11 +141,52 @@ public class Robot extends TimedRobot {
 
 
   @Override
-  //teleop
+
   public void autonomousInit()
   {
-    
+    m_myRobot.tankDrive(.4, .4); //drive forward
+    Timer.delay(.5);
+    m_myRobot.tankDrive(0, 0);
+
+    while(limelightX < -2.5 || limelightX > 2.5) //aim might not work
+    {
+      if(limelightX > 2.5)
+      {
+        m_turretX.set(ControlMode.PercentOutput, .25);
+        limelightX = tx.getDouble(0.0);
+      }
+      else if(limelightX < -2.5)
+      {
+        m_turretX.set(ControlMode.PercentOutput, -.25);
+        limelightX = tx.getDouble(0.0);
+      }
+      else
+      {
+        m_turretX.set(ControlMode.PercentOutput, 0);
+        limelightX = tx.getDouble(0.0);
+      }
+      limelightX = tx.getDouble(0.0);
+    }
+    m_turretX.set(ControlMode.PercentOutput, 0); //aim might not work
+
+    m_myRobot.setSafetyEnabled(false); //shoot
+    m_myRobot.tankDrive(0.0, 0.0);
+    m_intake.set(ControlMode.PercentOutput, 0);
+    m_intoRobot.set(ControlMode.PercentOutput, 0);
+    m_elevator.set(ControlMode.PercentOutput, 0);
+    m_frontCannon.set(0);
+    m_turretX.set(ControlMode.PercentOutput, 0);
+    m_shooter.set(ControlMode.PercentOutput, 1);
+    Timer.delay(.75);
+    m_preShooter.set(ControlMode.PercentOutput, -1);
+    m_intoShooter.set(ControlMode.PercentOutput, .5);
+    Timer.delay(1.5);
+    m_shooter.set(ControlMode.PercentOutput, 0);
+    m_preShooter.set(ControlMode.PercentOutput, 0);
+    m_intoShooter.set(ControlMode.PercentOutput, 0); //shoot
+
   }
+
   public void teleopPeriodic() 
   {
     //driving control driver controller left and right stick
@@ -161,7 +200,7 @@ public class Robot extends TimedRobot {
     double limelightX = tx.getDouble(0.0);
     //double limelightY = ty.getDouble(0.0);
     //double area = ta.getDouble(0.0);
-    Boolean bButton = m_driverController.getBButtonPressed();
+    Boolean bButton = m_driverController.getRawButton(2);
     if(bButton)
     {
       while(limelightX < -2.5 || limelightX > 2.5)
@@ -286,41 +325,6 @@ public class Robot extends TimedRobot {
     {
       m_turretX.set(ControlMode.PercentOutput, 0);
     }
-  //pneumatic code
-  /*
-
-  compressor.setClosedLoopControl(true);
-  double stick = m_secondController.getY(Hand.kLeft);
-  m_test775.set(ControlMode.PercentOutput, stick);
-  private Compressor compressor;sddlf,r4,,,44l3ol22
-  private Solenoid intakeSolenoidOne;
-  private Solenoid intakeSolenoidTwo;
-  compressor = new Compressor(0);
-  compressor.setClosedLoopControl(true);
-  intakeSolenoidOne = new Solenoid(4);
-  intakeSolenoidTwo = new Solenoid(5);
-  Boolean rightBump = m_driverController.getBumper(Hand.kRight);
-  //this doesn't work yet, change to match other code if needed
-  if(rightBump)
-      if(xButton)
-      {
-       // rBumpControl ++;
-       xControl ++;
-      }
-      //if(rBumpControl %2 == 0)
-      if(xControl %2 == 0)
-      {
-        intakeSolenoidOne.set(true);
-        intakeSolenoidTwo.set(false);
-      }
-      else
-      {
-        intakeSolenoidOne.set(false);    
-        intakeSolenoidTwo.set(true);   
-      }
-    */
-
-
 
   m_myRobot.close();
   }

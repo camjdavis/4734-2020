@@ -1,0 +1,33 @@
+  //pneumatic code
+  /*
+
+  compressor.setClosedLoopControl(true);
+  double stick = m_secondController.getY(Hand.kLeft);
+  m_test775.set(ControlMode.PercentOutput, stick);
+  private Compressor compressor;sddlf,r4,,,44l3ol22
+  private Solenoid intakeSolenoidOne;
+  private Solenoid intakeSolenoidTwo;
+  compressor = new Compressor(0);
+  compressor.setClosedLoopControl(true);
+  intakeSolenoidOne = new Solenoid(4);
+  intakeSolenoidTwo = new Solenoid(5);
+  Boolean rightBump = m_driverController.getBumper(Hand.kRight);
+  //this doesn't work yet, change to match other code if needed
+  if(rightBump)
+      if(xButton)
+      {
+       // rBumpControl ++;
+       xControl ++;
+      }
+      //if(rBumpControl %2 == 0)
+      if(xControl %2 == 0)
+      {
+        intakeSolenoidOne.set(true);
+        intakeSolenoidTwo.set(false);
+      }
+      else
+      {
+        intakeSolenoidOne.set(false);    
+        intakeSolenoidTwo.set(true);   
+      }
+    */
